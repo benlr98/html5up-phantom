@@ -1,0 +1,13 @@
+{
+  "name": "html5up-phantom",
+  "version": "1.0.0",
+  "description": "Andrea's food website.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Rich",
+  "license": "ISC",
+  "devDependencies": {
+    "netlify-cli": "^12.7.2"
+  }
+}
