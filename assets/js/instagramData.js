@@ -1,45 +1,7 @@
-{
-  /* 
-
-<article class="style1">
-  <span class="image">
-    <img src="images/pic03.jpg" alt="" />
-  </span>
-  <a href="generic.html">
-    <h2>Magna</h2>
-    <div class="content">
-      <p>
-        Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et
-        feugiat.
-      </p>
-    </div>
-  </a>
-</article>; 
-
-*/
-}
-
-
-
 async function getInstaData() {
-  // Beginning date of Andrea's food reels, converted from miliseconds to seconds
-  const since = new Date("2022-05-01").getTime() / 1000;
-  // todays current time in unix timestamp
-  const until = Math.floor(Date.now() / 1000);
-  //TODO: remove access token into secure .env file
-  let accessToken =
-    "";
-
-  let fields =
-    "id,media_type,media_url,permalink,thumbnail_url,timestamp,username,caption";
-
-  let instaDataUrl = `https://graph.instagram.com/v15.0/me/media?fields=${fields}&since=${since}&until=${until}&access_token=${accessToken}`;
-
-
-  let response = await fetch(instaDataUrl);
+  let response = await fetch(`/.netlify/functions/getInstaData`);
   let mediaData = await response.json();
   return mediaData;
-
 }
 
 async function createArticleElementsArray() {
