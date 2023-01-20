@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: Butler_Medium
+font link: http://fabiandesmet.com/portfolio/butler-font/
+font author: Fabian De Smet
+font author site: http://fabiandesmet.com/
+
+
+icon designer: Milky - Digital innovation
+icon designer link: /Milky
+        
+{"bg":"#3E6866","icon":"#50C1AE","font":"#FFFFFF","slogan":"#ffffff"}
+      
