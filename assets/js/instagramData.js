@@ -24,7 +24,7 @@ async function createArticleElementsArray() {
       <span class="image">
         <img src=${post.thumbnail_url} alt="${post.caption}" />
       </span>
-      <a href="generic.html">
+      <a href="article.html?id=${post.id}">
         <h2>${articleTitle}</h2>
         <div class="content">
           <p>
