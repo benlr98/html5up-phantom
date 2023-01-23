@@ -26,17 +26,24 @@
     let articleTitle = hashtagArray === null ? "#recipe" : hashtagArray[0];
 
     let newTitleElement = document.createElement('h1');
-    let newImgElement = document.createElement('img');
-    let newPElement = document.createElement('p');
+    // let newImgElement = document.createElement('img');
+    // let newPElement = document.createTextNode;
 
     newTitleElement.innerHTML = articleTitle;
-    newImgElement.src = data.thumbnail_url;
-    newPElement.innerHTML = data.caption;
+    // newImgElement.src = data.thumbnail_url;
 
 
     h1Element.replaceWith(newTitleElement);
-    imgElement.replaceWith(newImgElement);
-    pElement.replaceWith(newPElement);
+    // imgElement.replaceWith(newImgElement);
+    // pElement.innerHTML = data.caption;
+
+
+    pElement.innerHTML = `
+        <span class="image left">
+          <img src="${data.thumbnail_url}" alt="" />
+        </span>
+        ${data.caption}
+    `
   };
 
   replaceElementsWithData();
