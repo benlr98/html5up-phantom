@@ -4,6 +4,9 @@ require('dotenv').config();
 
 const handler = async (event) => {
 
+  // either 'food' or 'lifestlye'
+  const selection = event.queryStringParameters.selection;
+
   const fields = "id,media_type,media_url,permalink,thumbnail_url,timestamp,username,caption";
   // Date of Andrea's earliest food reels, converted from miliseconds to seconds
   const since = new Date("2022-05-01").getTime() / 1000;
@@ -16,14 +19,14 @@ const handler = async (event) => {
   try {
     
     const { data } = await axios.get(instaPostsUrl);
+    let onlyReelsArray = data.filter(
+      (post) => post.thumbnail_url !== undefined
+    );
+    let regex = /#\w*/g;
 
     return {
       statusCode: 200,
       body: JSON.stringify(data),
-      // body: JSON.stringify({ message: `Hello ${subject}, token: ${process.env.TEST_TOKEN}` }),
-      // // more keys you can return:
-      // headers: { "headerName": "headerValue", ... },
-      // isBase64Encoded: true,
     }
   } catch (error) {
     const { message, code } = error;

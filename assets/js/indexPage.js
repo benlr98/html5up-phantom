@@ -1,20 +1,39 @@
-async function getInstaData() {
-  let response = await fetch(`/.netlify/functions/getInstaData`);
+let foodButtonElement = document.getElementById('foodButton');
+let lifestyleButtonElement = document.getElementById('lifestyleButton');
+let pageSelectionButtonElement = document.querySelectorAll('#pageSelection li a');
+
+pageSelectionButtonElement.forEach(button => {
+  button.addEventListener('click', changeClassList);
+})
+
+function changeClassList(e) {
+  let buttonClassList = e.target.classList;
+  let primary = buttonClassList.contains('primary');
+  let buttonPressed = e.target.innerHTML.toString().toLowerCase();
+  
+  if(buttonPressed === 'food') { 
+    e.target.classList.add('primary');
+    lifestyleButtonElement.classList.remove('primary');
+  } else if (buttonPressed === "lifestyle") {
+    e.target.classList.add("primary");
+    foodButtonElement.classList.remove("primary");
+  }
+}
+
+async function getInstaData(selection) {
+  let response = await fetch(`/.netlify/functions/getInstaData?selection=${selection}`);
   let mediaData = await response.json();
   return mediaData;
 }
 
-async function createArticleElementsArray() {
-  let data = await getInstaData();
+async function createArticleElementsArray(view) {
+  let data = await getInstaData(view);
   let reelsArray = data.data.filter((post) => post.thumbnail_url !== undefined);
   let articleElementsArray = [];
   let regex = /#\w*/g;
 
   reelsArray.forEach(post => {
     let articleElement = document.createElement("article");
-    // TODO: decide whether I want an overlay class of some sort using next two lines
-    // let styleNumber = Math.floor(Math.random() * 6)
-    // articleElement.className = `style${styleNumber === 0 ? 1 : styleNumber}`;
 
     // create post title from first #used in the post.caption
     let hashtagArray = post.caption.match(regex);
@@ -44,6 +63,7 @@ async function createArticleElementsArray() {
 async function insertArticles() {
   let articleElementsArray = await createArticleElementsArray();
   let tilesSectionElement = document.querySelector(".tiles");
+  tilesSectionElement.innerHTML = "";
 
   articleElementsArray.forEach(article => {
     tilesSectionElement.append(article);
