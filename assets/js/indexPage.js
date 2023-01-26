@@ -60,7 +60,7 @@
 
       // create post title from first #used in the post.caption
       let hashtagArray = post.caption.match(findHashtagsRegex);
-      let articleTitle = hashtagArray === null ? "#recipe" : hashtagArray[0];
+      let articleTitle = hashtagArray === null ? "" : hashtagArray[0];
 
       articleElement.innerHTML = `
       <span class='image'>
