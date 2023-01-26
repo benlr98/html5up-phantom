@@ -13,7 +13,6 @@
   async function getArticleData() {
     let response = await fetch(`/.netlify/functions/getArticleData?id=${idParam}`);
     let data = await response.json();
-    console.log(data);
     return data;
   }
 
