@@ -7,7 +7,7 @@ const handler = async (event) => {
   // either 'food' or 'lifestlye'
   const selection = event.queryStringParameters.selection;
 
-  const fields = "id,media_type,media_url,permalink,thumbnail_url,timestamp,username,caption";
+  const fields = "id,thumbnail_url,caption";
   // Date of Andrea's earliest food reels, converted from miliseconds to seconds
   const since = new Date("2022-05-01").getTime() / 1000;
   // todays current time in unix timestamp
@@ -17,17 +17,26 @@ const handler = async (event) => {
 
 
   try {
-    
     const { data } = await axios.get(instaPostsUrl);
-    let onlyReelsArray = data.filter(
-      (post) => post.thumbnail_url !== undefined
-    );
+    let onlyReelsArray = data.data.filter(post => {
+      // only instagram reels have a thumbnail_url
+      return post.thumbnail_url !== undefined
+    });
     let regex = /#\w*/g;
+    
+    let onlySelectionReels = onlyReelsArray.filter(reel => {
+      let hashtagArray = reel.caption.match(regex);
+      let isSelectionReel = hashtagArray?.includes('#' + selection); //selection either 'recipe' or 'lifestlye'
+      isSelectionReel === null ? false : true;
+      
+      return isSelectionReel;
+    });
+
 
     return {
       statusCode: 200,
-      body: JSON.stringify(data),
-    }
+      body: JSON.stringify(onlyReelsArray),
+    };
   } catch (error) {
     const { message, code } = error;
     return { 
